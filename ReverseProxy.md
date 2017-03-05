@@ -1,10 +1,33 @@
+title: Managing Concurrent Connection Limits for Reverse Proxy | Microsoft Docs
+description: Architecting against chatty function calls in Reverse Proxy
+services: FabricApplicationGateway
+documentationcenter: dev-center-name
+author: GitHub-alias-of-only-one-author
+manager: manager-alias
+
+
+ms.service: required
+ms.devlang: may be required
+ms.topic: article
+ms.tgt_pltfrm: may be required
+ms.workload: required
+ms.date: 03/05/2017
+ms.author: Your MSFT alias or your full email address;semicolon separates two or more aliases
+
+---
+
 #Introduction 
 This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure and manages to elimiate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
 
-#Sceanrio
+##Sceanrio
 AppFoo has an excessive function call (for a few possible reasons including overly chatty code, aggressive retry mechanisms onsome error/exception, etc...).  This is causing a saturation/flooding scenario on the connection limit.
 
-#Investigation Points
+##Investigation Points
+Issues to investigate and consider
+
+- Is the connection limit running out of sockets?  There is a default 16k winsocket port
+- Item
+- Item
 
 
 
@@ -141,16 +164,6 @@ Thx.
 -hz
 
 
-
-#Getting Started
-The documentation will follow the Azure Doc best practices across the differnt types of articles
-1.	[Azure Technical Documentation Contributor Guide](https://github.com/Microsoft/azure-docs/blob/master/README.md)
-2.	[Markdown Cheatsheet](https://github.com/Microsoft/azure-docs/blob/master/README.md)
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
 
 title: Page title that displays in the browser tab and search results | Microsoft Docs
 description: Article description that will be displayed on landing pages and in most search results
