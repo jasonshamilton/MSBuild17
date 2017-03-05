@@ -17,41 +17,43 @@ ms.author: Your MSFT alias or your full email address;semicolon separates two or
 ---
 
 #Introduction 
-This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure and manages to elimiate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
+This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure and manages to eliminate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
 
 ##Sceanrio
 AppFoo has an excessive function call (for a few possible reasons including overly chatty code, aggressive retry mechanisms onsome error/exception, etc...).  This is causing a saturation/flooding scenario on the connection limit.
 
 ##Investigation Points
-Issues to investigate and consider
+Issues to investigate and consider:
 
 - Is the connection limit running out of sockets?  There is a default 16k winsocket port
-- Item
-- Item
+- Is the default conncurrent connection limit being exceeded which is managed by service fabric reverse proxy
+
+For the focus of this article, the assumption is sockets have been investigated and there are no issues.
+
+##Service Fabric Concurrent Connection Limits
+
+- Currently Reverse proxy handles 1000 concurrent requests by default  
+- Beyond this limit, requests will be pushed into the http.sys queue
+- This queue can affect response time from the target service 
+- This increased response time will affect the topology chain as well within the Reverse Proxy.  In other words if you are using more than one service in your chain (e.g. AppCentral Tollbridge etc..), the delay will permeate across these requests.
+
+##ARM Template for Increasing Reverse Proxy Defaults
+In a scenario where there is need to increase the reverse proxy concurrent request defaults there are a few methods/approaches
+
+###Using the Resource Mgr to Modify the Service Fabric Cluster
+
+- Go to https://resources.azure.com 
+- Navigate down to your subscriptions -- >  resourceGroups -- > providers -- > Microsoft.ServiceFabirc --- > your cluster
+ 
+ 
+- Click "Read/Write" then "Edit"
+ 
+1.	Scroll down to “fabricSettings” part, so you can add or modify.
+ 
+
+Note: Please test the suggestion on the testing environment first before use it to any production cluster.
 
 
-
-
-
-Hi William,
-
-Good afternoon! Just hope to follow up with you to see if you need any additional info on this reverse proxy performance issue.
-
-With additional debugging, we can confirm when fabric:/bpp was crashing, there are thousands of reverse proxy connection requests were asked to the following Urls over and over again:
-http://10.234.151.133:8080/Tollbridge/v1.0/api/config/messaging_publish_service:default@messaging_eventhub
-http://10.234.151.133:8080/Tollbridge/v1.0/api/config/Business%20Process%20Platform:default@audit_queue_publish
-http://10.234.151.133:8080/Tollbridge/v1.0/api/config/Business%20Process%20Platform:default@endpointSettings
-http://10.234.151.133:8080/Tollbridge/v1.0/api/config/Business%20Process%20Platform:default@relaySettings
-http://10.234.151.133:8080/Tollbridge/v1.0/api/config/message_platform:default@queue_publisher
-…
-
-We were guessing the high connection numbers were coming from fabric:/bpp and somehow they were associated with this function WK.Axcess.Tollbridge.TollBridgeWebClient.GetConfig[T](BridgePath path)
-In bpp app. It can be  either a retry from the above code path on some error/exception or from the nature of that function asking for more Urls than other functions.
-
-Eventually, the above flooding requests had saturated the concurrent connection limit. We were able to confirm the connection limit is not that we were running out of sockets. The default 16k winsock port still seems to be available.
-After digging into the FabricApplicationGateway reverse proxy code and implementation, we are able to confirm another bottleneck @ the default concurrent connection limit, which is enforced by service fabric reverse proxy itself.
-
-Basically, Reverse proxy handles 1000 concurrent requests by default and additional requests beyond that will be pushing and sitting in the http.sys queue. The time taken by the target service to process a forwarded request would affect the time a request spends in the http.sys queue. Since the same reverse proxy is handling requests for both the TollBridge service from bpp and the AppCentralApp, the flooding requests to TollBridge is also delaying the requests for AppCentralApp as well
 
 Also, We are able to find a way to increase 1000 concurrent requests to a bigger value in our reverse proxy layer today by involving the reverse proxy code component developer, basically, you will have to push a change through ARM template on fabricSettings for using a bigger ApplicationGateway/Http/NumberOfParallelOperations value.
 
@@ -74,15 +76,7 @@ The ARM template code snippet is as following.
 
 If ARM template is not possible for you, you can also push the upgrade change from https://resources.azure.com 
 1.	Go to https://resources.azure.com
-2.	Navigate down to your subscriptions -- >  resourceGroups -- > providers -- > Microsoft.ServiceFabirc --- > your cluster
- 
- 
-3.	Click "Read/Write" then "Edit"
- 
-1.	Scroll down to “fabricSettings” part, so you can add or modify.
- 
-
-Note: Please test the suggestion on the testing environment first before use it to any production cluster.
+2.	
 
 I hope the information helps.
 
