@@ -12,16 +12,16 @@ ms.devlang: may be required
 ms.topic: article
 ms.tgt_pltfrm: may be required
 ms.workload: required
-ms.date: 03/05/2017
-ms.author: Your MSFT alias or your full email address;semicolon separates two or more aliases
+ms.date: 04/23/2017
+ms.author: jason.hamilton@wolterskluwer.com;semicolon separates two or more aliases
 
 ---
 
 # Introduction 
-This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure and manages to eliminate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
+This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure, manage, and eliminate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
 
 ## Sceanrio
-AppFoo has an excessive function call (for a few possible reasons including overly chatty code, aggressive retry mechanisms onsome error/exception, etc...).  This is causing a saturation/flooding scenario on the connection limit.
+AppFoo has an excessive function call (for a few possible reasons including overly chatty code, aggressive retry mechanisms on some error/exception, etc...).  This is causing a saturation/flooding scenario on the connection limit.
 
 ## Investigation Points
 Issues to investigate and consider:
@@ -33,9 +33,9 @@ For the focus of this article, the assumption is sockets have been investigated 
 
 ## Service Fabric Concurrent Connection Limits
 
-- Currently Reverse proxy handles 1000 concurrent requests by default  
+- Currently Reverse proxy handles 1000 concurrent requests by default
 - Beyond this limit, requests will be pushed into the http.sys queue
-- This queue can affect response time from the target service 
+- This queue can affect response time from the target service
 - This increased response time will affect the topology chain as well within the Reverse Proxy.  In other words if you are using more than one service in your chain (e.g. AppCentral Tollbridge etc..), the delay will permeate across these requests.
 
 ## ARM Template for Increasing Reverse Proxy Defaults
@@ -59,7 +59,11 @@ Note: Please test the suggestion on the testing environment first before use it 
 Also, We are able to find a way to increase 1000 concurrent requests to a bigger value in our reverse proxy layer today by involving the reverse proxy code component developer, basically, you will have to push a change through ARM template on fabricSettings for using a bigger ApplicationGateway/Http/NumberOfParallelOperations value.
 
 The ARM template code snippet is as following.
-"fabricSettings": [
+
+"fabricSettings": 
+
+```c#
+[
 
       {
         "name": " ApplicationGateway/Http",
@@ -70,7 +74,9 @@ The ARM template code snippet is as following.
           }
         ]
       }
-],
+]
+
+```
 
 •	You can set the above setting by using an incremental ARM template deployment. 
 •	Or you can use the https://resources.azure.com to modify the Service Fabric cluster under the “fabricSettings” part.
