@@ -4,7 +4,7 @@ services: FabricApplicationGateway
 documentationcenter: dev-center-name
 author: GitHub-alias-of-only-one-author
 manager: manager-alias
-This is a test
+
 
 
 ms.service: required
@@ -17,13 +17,13 @@ ms.author: Your MSFT alias or your full email address;semicolon separates two or
 
 ---
 
-#Introduction 
+# Introduction 
 This article is about managing the concurrent connection limits for FabricApplicationGateway reverse proxy. It discusses and addresses how to configure and manages to eliminate exceptions from causing your application to denial of service (DDOS) itself in a self healing cluster such as Azure Service Fabric.
 
-##Sceanrio
+## Sceanrio
 AppFoo has an excessive function call (for a few possible reasons including overly chatty code, aggressive retry mechanisms onsome error/exception, etc...).  This is causing a saturation/flooding scenario on the connection limit.
 
-##Investigation Points
+## Investigation Points
 Issues to investigate and consider:
 
 - Is the connection limit running out of sockets?  There is a default 16k winsocket port
@@ -31,17 +31,17 @@ Issues to investigate and consider:
 
 For the focus of this article, the assumption is sockets have been investigated and there are no issues.
 
-##Service Fabric Concurrent Connection Limits
+## Service Fabric Concurrent Connection Limits
 
 - Currently Reverse proxy handles 1000 concurrent requests by default  
 - Beyond this limit, requests will be pushed into the http.sys queue
 - This queue can affect response time from the target service 
 - This increased response time will affect the topology chain as well within the Reverse Proxy.  In other words if you are using more than one service in your chain (e.g. AppCentral Tollbridge etc..), the delay will permeate across these requests.
 
-##ARM Template for Increasing Reverse Proxy Defaults
+## ARM Template for Increasing Reverse Proxy Defaults
 In a scenario where there is need to increase the reverse proxy concurrent request defaults there are a few methods/approaches
 
-###Using the Resource Mgr to Modify the Service Fabric Cluster
+### Using the Resource Mgr to Modify the Service Fabric Cluster
 
 - Go to https://resources.azure.com 
 - Navigate down to your subscriptions -- >  resourceGroups -- > providers -- > Microsoft.ServiceFabirc --- > your cluster
