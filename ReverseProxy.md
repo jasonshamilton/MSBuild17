@@ -60,9 +60,10 @@ Also, We are able to find a way to increase 1000 concurrent requests to a bigger
 
 The ARM template code snippet is as following.
 
+```c#
+
 "fabricSettings": 
 
-```c#
 [
 
       {
