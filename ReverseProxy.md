@@ -1,5 +1,5 @@
 title: Managing Concurrent Connection Limits for Reverse Proxy | Microsoft Docs
-description: Architecting against chatty function calls in Reverse Proxy
+description: Architect against chatty function calls in Reverse Proxy
 services: FabricApplicationGateway
 documentationcenter: dev-center-name
 author: GitHub-alias-of-only-one-author
@@ -13,8 +13,7 @@ ms.topic: article
 ms.tgt_pltfrm: may be required
 ms.workload: required
 ms.date: 04/23/2017
-ms.author: jason.hamilton@wolterskluwer.com;semicolon separates two or more aliases
-This is a Test
+ms.author: jason.hamilton@wolterskluwer.com;Hui.Zhu@microsoft.com>;semicolon separates two or more aliases
 
 ---
 
