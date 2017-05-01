@@ -30,21 +30,21 @@ AppFoo has an excessive function call (for a few possible reasons including over
 
 Issues to investigate and consider:
 
-- Is the connection limit running out of sockets?  There is a default 16k winsocket port
-- Is the default concurrent connection limit being exceeded which is managed by service fabric reverse proxy
+- Is the connection limit running out of sockets? 
+- Is the default concurrent connection limit being exceeded which is managed by service fabric reverse proxy?
 
-For the focus of this article, the assumption is sockets have been investigated and there are no issues.
+For the focus of this article, the assumption is sockets have been investigated and there are no issues.  See the Tools and Tips section to validate you are not running into socket issues.
 
 ## Service Fabric Concurrent Connection Limits
 
 - Currently Reverse proxy handles 1000 concurrent requests by default
 - Beyond this limit, requests will be pushed into the http.sys queue
 - This queue can affect response time from the target service
-- This increased response time will affect the topology chain as well within the Reverse Proxy.  In other words if you are using more than one service in your chain (e.g. AppCentral Tollbridge etc..), the delay will permeate across these requests.
+- This increased response time will affect the topology chain as well within the Reverse Proxy.  In other words if you are using more than one service in your chain, the delay will permeate across these requests
 
 ## ARM Template for Increasing Reverse Proxy Defaults
 
-Note: Please test the suggestion on the testing environment first before use it to any production cluster.
+Note: Please test the suggestion on the testing environment first before use it to any production cluster
 
 In a scenario where there is need to increase the reverse proxy concurrent request defaults there are a few methods/approaches
 
@@ -71,8 +71,6 @@ The ARM template code snippet is as following.
 
 ```
 
-You can set the above setting by using an incremental ARM template deployment.
-
 ### Using the Resource Mgr to Modify the Service Fabric Cluster
 
 Note: Please test the suggestion on the testing environment first before use it to any production cluster
@@ -88,9 +86,9 @@ Making the changes through the Management Admin Portal
 ### Tools and Tips for Troubleshooting
 
 - Use “netstat -ano” output during the repro might give you the full details of the root cause
-- Note: Connection limits are not at the VM size level, such as D13 and D15. It is setting at winsock limit of OS level
+- Note: Connection limits are not at the VM size level, such as D13 and D15. Winsock limit are at the OS level.
 - You can query it by using “netsh int ipv4 show dynamicport tcp” from admin dos prompt
-- To increase socket limits numbers by using netsh int <ipv4|ipv6> 
+- To increase socket limits numbers, use netsh int <ipv4|ipv6> 
 - Note: Any closed connection to be qualified for reuse has to be wait up to 240 seconds time elapse
   - See: https://technet.microsoft.com/en-us/library/cc938217.aspx
   - The minimum you can decrease this wait is to set 30 seconds in that registry of above link
