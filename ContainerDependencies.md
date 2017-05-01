@@ -1,6 +1,6 @@
 title: Dependency Strategies when Containerizing Monolithic Architectures on ASF
  | Microsoft Docs
-description: Best Pracitces and Platfrom Ecosystem for Containerization During a Digital Transformation
+description: Best Pracitces and Platform Ecosystem for Containerization During a Digital Transformation
 services: FabricApplicationGateway
 documentationcenter: dev-center-name
 author: GitHub-alias-of-only-one-author
