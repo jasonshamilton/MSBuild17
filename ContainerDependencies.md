@@ -95,7 +95,7 @@ This section summarizes a playbook for using Publish APIs using WSDL / Swagger f
 - See: [SwashBuckle Plugin](https://github.com/domaindrivendev/Swashbuckle)
 - See: [How to import the definition of an API with operations in Azure API Management](https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-import-api) 
 
-API Publication Playbook  | 
+API Publication + Distribution Playbook  | 
 ------------- |
 Generate WSDL & Swagger files for services consumed by client applications and internal and external integrations 
 For WSDL generation use native WCF Metadata publishing features
