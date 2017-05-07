@@ -63,34 +63,25 @@ Based on the transformation needs 3 main playbooks were defined, Managing Client
 This section summarizes a summary playbook for using Nuget as a mechanism for dependency resolution
 
 ### Analyze, Identify and Document 
-Note: There are many tools which can enables this.  One example is NDepend. 
-See: [Visualize Dependencies with NDepend](http://www.simpleorientedarchitecture.com/visualize-dependencies-with-ndepend/)
-See: [Package Management in Team Services and TFS (https://www.visualstudio.com/en-us/docs/package/overview) 
+Note: There are many tools which can enables this.  One example is NDepend.
+
+- See: [Visualize Dependencies with NDepend](http://www.simpleorientedarchitecture.com/visualize-dependencies-with-ndepend/)
+- See: [Package Management in Team Services and TFS](https://www.visualstudio.com/en-us/docs/package/overview) 
 
 Dependency Playbook  | 
 ------------- |
-Identify third party dependencies with their version number                     |
+Identify third party dependencies with their version number                     
 Identify third party dependencies with their version number
-Identify existing (intra) internal dependent binaries in the existing system    |
-Identify existing (inter) internal dependent binaries in the existing system  |
+Identify existing (intra) internal dependent binaries in the existing system    
+Identify existing (inter) internal dependent binaries in the existing system  
 Publish internal dependencies for each Nuget package
 Create & check-in solution file with projects related to that package
 Create Nuspec file to define contents of the package 
 Update Build to publish Nuget package
 Consume dependencies via Nuget
 Resolve third-party dependencies via Nuget
-Resolve internal dependencies via Nuget  | 
+Resolve internal dependencies via Nuget  
 
-Identify third party dependencies with their version number
-Identify existing (intra) internal dependent binaries in the existing system
-Identify existing (inter) internal dependent binaries in the existing system 
-Publish internal dependencies for each Nuget package
-Create & check-in solution file with projects related to that package
-Create Nuspec file to define contents of the package 
-Update Build to publish Nuget package
-Consume dependencies via Nuget
-Resolve third-party dependencies via Nuget
-Resolve internal dependencies via Nuget
 
 ### Enabling a Distribution Model for Azure Hosted APIs
 This section summarizes a summary playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting API Management
