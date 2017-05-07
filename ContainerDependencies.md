@@ -83,7 +83,7 @@ Resolve third-party dependencies via Nuget
 Resolve internal dependencies via Nuget  
 
 
-### Enabling a Distribution Model for Azure Hosted APIs
+## Enabling a Distribution Model for Azure Hosted APIs
 
 This section summarizes a summary playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting API Management
 
@@ -101,7 +101,7 @@ Create Axcess environment in Azure and point
 Modify endpoint to APIM URLs in Dev environment and ensure that your service can be consumed via APIM
 
 
-### Containerization Using Azure Service Fabric, Azure Container Registry, and Docker
+## Containerization Using Azure Service Fabric, Azure Container Registry, and Docker
 
 This section summarizes a summary playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting API Management
 
