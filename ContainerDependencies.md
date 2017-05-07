@@ -20,7 +20,8 @@ ms.author: jason.hamilton@wolterskluwer.com;semicolon separates two or more alia
 This document provides a summary view of how to define an effective Containerization Strategy as part of a multi-variable digital transformation.  Specifically it focuses on the journey from monolithic datacenter footprints to Hybrid cloud models that support an end goal of a public cloud microservice architecture for large distributed systems.
 
 It maps out a path to support the existing software footprint, while moving towards the end goal in a step wise manner.  It focuses on accomplishing multiple targets and goals with containerization both enabling lift and shift and a transformation scenarios.
-The following is a summary viewpoint on the transformation targets, the approaches taken, and how containerization plays a strategic role using Azure Service Fabric.
+
+Below are summary viewpoints on the transformation targets, the approaches taken, and how containerization plays a strategic role using Azure Service Fabric.
 
 # Transformation Targets
 
@@ -57,7 +58,10 @@ Beyond just containerizing the existing workload, the strategy must accommodate 
 
 # Stepwise Approach
 
-Based on the transformation needs 3 main playbooks were defined, Managing Client Dependencies, Distribution Model for Hybrid APIM, and Containerization Using Azure Service Fabric, to support the holistic Containerization Strategy
+Based on the transformation needs 3 main playbooks were defined to support the holistic Containerization Strategy
+1. Client Dependency Playbook
+2. API Publication + Distribution Playbook
+3. ASF + Docker Containerization Playbook
 
 ## Managing Client Dependencies
 This section summarizes a summary playbook for using Nuget as a mechanism for dependency resolution
@@ -68,7 +72,7 @@ Note: There are many tools which can enables this.  One example is NDepend.
 - See: [Visualize Dependencies with NDepend](http://www.simpleorientedarchitecture.com/visualize-dependencies-with-ndepend/)
 - See: [Package Management in Team Services and TFS](https://www.visualstudio.com/en-us/docs/package/overview) 
 
-Dependency Playbook  | 
+Client Dependency Playbook  | 
 ------------- |
 Identify third party dependencies with their version number                     
 Identify third party dependencies with their version number
