@@ -12,7 +12,7 @@ ms.topic: article
 ms.tgt_pltfrm: may be required
 ms.workload: required
 ms.date: 04/23/2017
-ms.author: jason.hamilton@wolterskluwer.com;semicolon separates two or more aliases
+ms.author: Jason.Hamilton@wolterskluwer.com;Gaurav.Dhamija@wolterskluwer.com;Sean.Taylor@wolterskluwer.com
 
 --->
 # Overview
@@ -64,7 +64,7 @@ Based on the transformation needs 3 main playbooks were defined to support the h
 3. ASF + Docker Containerization Playbook
 
 ## Managing Client Dependencies
-This section summarizes a summary playbook for using Nuget as a mechanism for dependency resolution
+This section summarizes a playbook for using Nuget as a mechanism for dependency resolution
 
 ### Analyze, Identify, and Document 
 Note: There are many tools which can enables this.  One example is NDepend.
@@ -89,7 +89,7 @@ Resolve internal dependencies via Nuget
 
 ## Enabling a Distribution Model for Azure Hosted APIs
 
-This section summarizes a summary playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting API Management
+This section summarizes a playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting with Azure API Management
 
 - See: [Publishing Metadata](https://msdn.microsoft.com/en-us/library/aa751951(v=vs.110).aspx)
 - See: [SwashBuckle Plugin](https://github.com/domaindrivendev/Swashbuckle)
@@ -107,17 +107,24 @@ Modify endpoint to APIM URLs in Dev environment and ensure that your service can
 
 ## Containerization Using Azure Service Fabric, Azure Container Registry, and Docker
 
-This section summarizes a summary playbook for using Publish APIs using WSDL / Swagger for Hybrid Hosting API Management
+This section summarizes a playbook for using ASF and Docker for Containerization 
+
+- See: [Azure Container Registry Documentation](https://docs.microsoft.com/en-us/azure/container-registry/)
+- See: [Service Fabric and Containers](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-containers-overview)
 
 ASF + Docker Containerization Playbook  | 
 ------------- |
 Provision development environment for containerization
-ASF Container Cluster
-Azure Container Registry instance
-Axcess environment for resolving database and other dependencies
-Windows Server 2016 VM to create & test Dockerfile
+Create ASF Container Cluster
+Create Azure Container Registry instance
+If Hybrid create existing system environment for resolving database and other dependencies
+Create Windows Server 2016 VM to create & test Dockerfile
 Create Dockerfile per VSTS Repository
 Each Docker file represents a container and will host all IIS sites & windows services contained in that repository
 Instantiate container on Dev environment and ensure that services exposed by it works as expected
-Create a CI Build for generating and publishing Docker image in WK Azure Container Registry
+Create a CI Build for generating and publishing Docker image in Azure Container Registry
 
+# Summary and Takeaways
+
+- By following these summary playbooks and mapping them to specific scenarios customers can achieve their multi-variable transformation targets
+- They can can be considered independently if required based on needs/requirements
